@@ -70,9 +70,9 @@ public enum EnergyHatchData implements IStringSerializable {
 
             size.ic2EnergyTier = cfg.get("energyhatch.tier", size.name().toUpperCase(), size.defaultIC2EnergyTier, "Defines the IC2 output-voltage tier. Only affects the power the output hatches will output power as. 0 = 'ULV' = 8 EU/t, 1 = 'LV' = 32 EU/t, 2 = 'MV' = 128 EU/t, ... [range: 0 ~ 12, default: " + size.defaultIC2EnergyTier + "]").getInt();
 
-            size.gtEnergyTier = cfg.get("energyhatch.gtvoltage", size.name().toUpperCase(), size.defaultGTEnergyTier, "Defines the GT voltage tier. Affects both input and output hatches of this tier. [range: 0 ~ 8, default: " + size.defaultGTEnergyTier + "]").getInt();
+            size.gtEnergyTier = cfg.get("energyhatch.gtvoltage", size.name().toUpperCase(), size.defaultGTEnergyTier, "Defines the GT voltage tier. Affects both input and output hatches of this tier. [range: 0 ~ 16, default: " + size.defaultGTEnergyTier + "]").getInt();
             size.gtEnergyTier = MathHelper.clamp(size.gtEnergyTier, 0, 16);
-            size.gtAmperage = cfg.get("energyhatch.gtamperage", size.name().toUpperCase(), size.defaultGTAmperage, "Defines the GT amperage. Affects both output amperage as well as maximum input amperage. [range: 1 ~ 16, default: " + size.defaultGTAmperage + "]").getInt();
+            size.gtAmperage = cfg.get("energyhatch.gtamperage", size.name().toUpperCase(), size.defaultGTAmperage, "Defines the GT amperage. Affects both output amperage as well as maximum input amperage. [range: 1 ~ 128, default: " + size.defaultGTAmperage + "]").getInt();
             size.gtAmperage = MathHelper.clamp(size.gtAmperage, 1, 128);
         }
 
@@ -115,7 +115,7 @@ public enum EnergyHatchData implements IStringSerializable {
 
     @Optional.Method(modid = "gregtech")
     public String getUnlocalizedGTEnergyTier() {
-        return GTValues.VN[getGTEnergyTier()];
+        return new String[] {"ULV", "LV", "MV", "HV", "EV", "IV", "LuV", "ZPM", "UV", "UHV", "UEV", "UIV", "UMV", "UXV", "MAX"};
     }
 
     public long getGTEnergyTransferVoltage() {
